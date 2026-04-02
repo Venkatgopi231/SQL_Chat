@@ -1,0 +1,189 @@
+{
+  "chartTypeExamples": {
+    "pieChart": {
+      "success": true,
+      "data": {
+        "chartData": [25, 20, 20, 20, 15],
+        "labels": ["Construction", "Environmental", "Geotechnical", "Materials", "Special"],
+        "title": "Revenue Distribution (Pie Chart)",
+        "type": "pie"
+      }
+    },
+    "barChart": {
+      "success": true,
+      "data": {
+        "chartData": [35, 28, 22, 18, 12],
+        "labels": ["Q1", "Q2", "Q3", "Q4", "Q5"],
+        "title": "Quarterly Performance (Bar Chart)",
+        "type": "bar"
+      }
+    },
+    "lineChart": {
+      "success": true,
+      "data": {
+        "chartData": [10, 15, 25, 30, 35, 40],
+        "labels": ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+        "title": "Monthly Growth Trend (Line Chart)",
+        "type": "line"
+      }
+    },
+    "doughnutChart": {
+      "success": true,
+      "data": {
+        "chartData": [40, 30, 20, 10],
+        "labels": ["North", "South", "East", "West"],
+        "title": "Regional Distribution (Doughnut Chart)",
+        "type": "doughnut"
+      }
+    },
+    "donutChart": {
+      "success": true,
+      "data": {
+        "chartData": [45, 25, 20, 10],
+        "labels": ["Service A", "Service B", "Service C", "Service D"],
+        "title": "Service Distribution (Donut Chart)",
+        "type": "donut"
+      }
+    }
+  },
+  "objectArrayExamples": {
+    "barChartObjects": {
+      "success": true,
+      "data": {
+        "chartData": [
+          { "label": "Construction", "value": 45, "color": "#E91E63" },
+          { "label": "Environmental", "value": 35, "color": "#2196F3" },
+          { "label": "Materials", "value": 25, "color": "#FF9800" },
+          { "label": "Geotechnical", "value": 20, "color": "#9C27B0" }
+        ],
+        "title": "Service Performance (Bar Chart)",
+        "type": "bar"
+      }
+    },
+    "lineChartObjects": {
+      "success": true,
+      "data": {
+        "chartData": [
+          { "label": "Week 1", "value": 10 },
+          { "label": "Week 2", "value": 15 },
+          { "label": "Week 3", "value": 25 },
+          { "label": "Week 4", "value": 30 },
+          { "label": "Week 5", "value": 35 }
+        ],
+        "title": "Weekly Progress (Line Chart)",
+        "type": "line"
+      }
+    }
+  },
+  "structuredExamples": {
+    "fullBarChart": {
+      "success": true,
+      "data": {
+        "chart": {
+          "title": "Department Revenue (Bar Chart)",
+          "type": "bar",
+          "data": [
+            { "label": "Engineering", "value": 50 },
+            { "label": "Construction", "value": 40 },
+            { "label": "Environmental", "value": 30 },
+            { "label": "Materials", "value": 25 }
+          ],
+          "colors": ["#FF6B6B", "#4ECDC4", "#45B7D1", "#96CEB4"]
+        }
+      }
+    },
+    "fullLineChart": {
+      "success": true,
+      "data": {
+        "chart": {
+          "title": "Growth Trajectory (Line Chart)",
+          "type": "line",
+          "data": [
+            { "label": "Jan", "value": 100 },
+            { "label": "Feb", "value": 120 },
+            { "label": "Mar", "value": 140 },
+            { "label": "Apr", "value": 180 },
+            { "label": "May", "value": 200 }
+          ],
+          "colors": ["#FF5722"]
+        }
+      }
+    }
+  },
+  "n8nWebhookExamples": {
+    "dynamicBarChart": {
+      "success": true,
+      "message": "Bar chart data retrieved",
+      "data": {
+        "chartData": [45, 38, 32, 28, 22],
+        "labels": ["Service A", "Service B", "Service C", "Service D", "Service E"],
+        "title": "Real-time Service Performance",
+        "type": "bar",
+        "timestamp": "2026-01-19T09:00:00.000Z"
+      }
+    },
+    "dynamicLineChart": {
+      "success": true,
+      "message": "Line chart data processed",
+      "data": {
+        "chartData": [
+          { "label": "Jan 2026", "value": 150 },
+          { "label": "Feb 2026", "value": 175 },
+          { "label": "Mar 2026", "value": 200 },
+          { "label": "Apr 2026", "value": 225 }
+        ],
+        "title": "Revenue Trend Analysis",
+        "type": "line",
+        "generatedAt": "2026-01-19T09:00:00.000Z"
+      }
+    },
+    "dynamicDoughnutChart": {
+      "success": true,
+      "message": "Doughnut chart data ready",
+      "data": {
+        "chart": {
+          "title": "Market Share Distribution",
+          "type": "doughnut",
+          "data": [
+            { "label": "Our Company", "value": 35, "color": "#4CAF50" },
+            { "label": "Competitor A", "value": 25, "color": "#FF9800" },
+            { "label": "Competitor B", "value": 20, "color": "#F44336" },
+            { "label": "Others", "value": 20, "color": "#9E9E9E" }
+          ]
+        }
+      }
+    }
+  },
+  "testInstructions": {
+    "howToTestInApp": [
+      "1. Copy any of the test data objects above",
+      "2. In n8n webhook, return the data structure with the desired chart type",
+      "3. Use the search box in the app to trigger the webhook",
+      "4. The chart will automatically update to the specified type",
+      "5. Check browser console for detailed logs"
+    ],
+    "browserConsoleTest": [
+      "1. Open browser developer tools",
+      "2. Go to Console tab", 
+      "3. Test different chart types:",
+      "   component.handleWebhookChartData(testData.chartTypeExamples.barChart)",
+      "   component.handleWebhookChartData(testData.chartTypeExamples.lineChart)",
+      "   component.handleWebhookChartData(testData.chartTypeExamples.doughnutChart)",
+      "4. Watch the chart change types dynamically"
+    ],
+    "n8nWebhookSetup": [
+      "1. Create webhook node in n8n",
+      "2. Set response mode to 'Respond to Webhook'",
+      "3. Return JSON with 'type' property set to: 'pie', 'bar', 'line', 'doughnut', or 'donut'",
+      "4. Include chartData array and labels array",
+      "5. Optionally include title and colors"
+    ]
+  },
+  "supportedChartTypes": {
+    "pie": "Traditional pie chart with segments",
+    "bar": "Vertical bar chart for comparisons",
+    "line": "Line chart for trends over time",
+    "doughnut": "Doughnut chart (pie with center hole)",
+    "donut": "Alias for doughnut chart"
+  }
+}

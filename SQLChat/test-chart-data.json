@@ -1,0 +1,93 @@
+{
+  "testData": {
+    "format1_numberArray": {
+      "success": true,
+      "data": {
+        "chartData": [35, 25, 20, 15, 5],
+        "labels": ["Construction", "Environmental", "Geotechnical", "Materials", "Special"],
+        "title": "Q1 Revenue Distribution"
+      }
+    },
+    "format2_objectArray": {
+      "success": true,
+      "data": {
+        "chartData": [
+          { "label": "Construction Inspection", "value": 40, "color": "#E91E63" },
+          { "label": "Environmental Services", "value": 30, "color": "#2196F3" },
+          { "label": "Geotechnical Analysis", "value": 20, "color": "#9C27B0" },
+          { "label": "Materials Testing", "value": 10, "color": "#FF9800" }
+        ],
+        "title": "Updated Service Revenue"
+      }
+    },
+    "format3_structuredObject": {
+      "success": true,
+      "data": {
+        "chart": {
+          "title": "Regional Performance",
+          "type": "pie",
+          "data": [
+            { "label": "North Region", "value": 45 },
+            { "label": "South Region", "value": 30 },
+            { "label": "East Region", "value": 15 },
+            { "label": "West Region", "value": 10 }
+          ],
+          "colors": ["#FF6B6B", "#4ECDC4", "#45B7D1", "#96CEB4"]
+        }
+      }
+    },
+    "format4_alternativeNames": {
+      "success": true,
+      "data": {
+        "pieChart": [
+          { "name": "Category A", "amount": 50, "color": "#FF5722" },
+          { "category": "Category B", "percentage": 30, "color": "#795548" },
+          { "label": "Category C", "value": 20, "color": "#607D8B" }
+        ],
+        "title": "Alternative Format Test"
+      }
+    }
+  },
+  "n8nExamples": {
+    "simpleResponse": {
+      "success": true,
+      "message": "Chart data retrieved successfully",
+      "data": {
+        "chartData": [25, 20, 20, 20, 15],
+        "labels": ["Construction", "Environmental", "Geotechnical", "Materials", "Special"],
+        "title": "Real-time Revenue Data",
+        "timestamp": "2026-01-19T08:00:00.000Z"
+      }
+    },
+    "dynamicResponse": {
+      "success": true,
+      "message": "Dynamic data processed",
+      "data": {
+        "chartData": [
+          { "label": "Service Line A", "value": 35 },
+          { "label": "Service Line B", "value": 28 },
+          { "label": "Service Line C", "value": 22 },
+          { "label": "Service Line D", "value": 15 }
+        ],
+        "title": "Live Dashboard Data",
+        "generatedAt": "2026-01-19T08:00:00.000Z",
+        "source": "n8n-webhook"
+      }
+    }
+  },
+  "instructions": {
+    "howToTest": [
+      "1. Copy any of the test data objects above",
+      "2. In n8n, create a webhook that returns the data structure",
+      "3. Use the search box in the app to trigger the webhook",
+      "4. The chart will automatically update with the new data",
+      "5. Check browser console for detailed logs"
+    ],
+    "browserConsoleTest": [
+      "1. Open browser developer tools",
+      "2. Go to Console tab",
+      "3. Paste: component.handleWebhookChartData(testData.format1_numberArray.data)",
+      "4. Press Enter to see the chart update"
+    ]
+  }
+}

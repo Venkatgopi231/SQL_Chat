@@ -1,0 +1,193 @@
+<div class="analytics-hub">
+  <!-- Header -->
+  <header class="header">
+    <h1 class="title">Sample Application</h1>
+  </header>
+
+  <!-- Navigation Tabs -->
+  <nav class="nav-tabs">
+    <button class="tab active strategic">Strategic</button>
+    <!-- <button class="tab executive">Executive</button>
+    <button class="tab financials">Financials</button>
+    <button class="tab field-services">Field Services</button>
+    <button class="tab materials">Materials</button>
+    <button class="tab geotechnical">Geotechnical</button>
+    <button class="tab projects">Projects</button>
+    <button class="tab environmental">Environmental</button>
+    <button class="tab clients">Clients</button>
+    <button class="tab pipeline">Pipeline</button>
+    <button class="tab hr">HR</button> -->
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Strategic Section -->
+    <section class="strategic-section">
+      <div class="section-header">
+        <div class="section-icon">📊</div>
+        <div class="section-info">
+          <h2>Strategic</h2>
+          <p>Goals & market position</p>
+        </div>
+      </div>
+
+      <!-- Search Bar -->
+      <div class="search-wrapper">
+        <div class="search-box" [class.focused]="searchFocused" [class.loading]="isLoading">
+          <svg class="search-box__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+          </svg>
+
+          <input
+            #searchInput  
+            type="text"
+            class="search-box__input"
+            placeholder="Ask a question…"
+            autocomplete="off"
+            spellcheck="true"
+            [(ngModel)]="searchQuery"
+            (focus)="onSearchFocus()"
+            (blur)="onSearchBlur()"
+            (input)="onSearchInput($event)"
+            (keydown)="onSearchKeyDown($event)"
+          >
+
+          <!-- clear button -->
+          <button class="search-box__clear" *ngIf="searchQuery" (mousedown)="clearSearch()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M18 6 6 18M6 6l12 12"/>
+            </svg>
+          </button>
+
+          <!-- send / spinner -->
+          <button
+            class="search-box__send"
+            (mousedown)="onSearchSubmit()"
+            [disabled]="!searchQuery.trim() || isLoading"
+          >
+            <span class="btn-spinner" *ngIf="isLoading"></span>
+            <svg *ngIf="!isLoading" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 2 11 13M22 2 15 22l-4-9-9-4 20-7z"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Google-style dropdown -->
+        <div class="intellisense-dropdown" *ngIf="showSuggestions || isFetchingSuggestions">
+          <ul role="listbox">
+            <li
+              *ngFor="let s of suggestions; let i = index"
+              class="intellisense-item"
+              [class.highlighted]="i === activeIndex"
+              (mousedown)="pickSuggestion(s)"
+              role="option"
+            >
+              <svg *ngIf="!s.corrected" class="item-icon item-icon--search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+              </svg>
+              <svg *ngIf="s.corrected" class="item-icon item-icon--correct" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+              </svg>
+              <span class="item-text">
+                <span class="item-typed" [innerHTML]="typedPart(s.text)"></span><span class="item-bold">{{ boldPart(s.text) }}</span>
+              </span>
+              <span class="item-tag" *ngIf="s.corrected">Did you mean?</span>
+              <button class="item-fill" (mousedown)="fillInput($event, s.text)" title="Fill">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M7 17 17 7M7 7h10v10"/>
+                </svg>
+              </button>
+            </li>
+          </ul>
+
+          <!-- Fetching indicator — 3 pulsing dots while API call is in flight -->
+          <div class="intellisense-fetching" *ngIf="isFetchingSuggestions">
+            <span></span><span></span><span></span>
+          </div>
+
+          <div class="intellisense-footer" *ngIf="suggestions.length && !isFetchingSuggestions">
+            <span>↑↓ navigate &nbsp;·&nbsp; Enter select &nbsp;·&nbsp; Esc close</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Loading bar -->
+      <div class="progress-bar" *ngIf="isLoading">
+        <div class="progress-bar__fill"></div>
+      </div>
+
+    </section>
+
+    <!-- Chart Section -->
+    <section class="chart-section">
+      <div class="chart-header">
+        <h3>{{ chartTitle }}</h3>
+        <div class="chart-type-selector">
+          <button 
+            class="chart-type-btn" 
+            [class.active]="currentChartType === 'pie'"
+            (click)="changeChartType('pie')"
+          >
+            Pie
+          </button>
+          <button 
+            class="chart-type-btn" 
+            [class.active]="currentChartType === 'doughnut'"
+            (click)="changeChartType('doughnut')"
+          >
+            Donut
+          </button>
+          <button 
+            class="chart-type-btn" 
+            [class.active]="currentChartType === 'bar'"
+            (click)="changeChartType('bar')"
+          >
+            Bar
+          </button>
+          <button 
+            class="chart-type-btn" 
+            [class.active]="currentChartType === 'line'"
+            (click)="changeChartType('line')"
+          >
+            Line
+          </button>
+        </div>
+      </div>
+      <div class="chart-container">
+        <canvas #pieChart width="400" height="400"></canvas>
+      </div>
+
+          <!-- Webhook Response Display -->
+      <div class="webhook-response" *ngIf="webhookResponse || sqlQuery">
+        <div class="response-header">
+          <h4>Response</h4>
+          <span class="response-status" [class.success]="webhookResponse?.success" [class.error]="webhookResponse && !webhookResponse.success">
+            {{ webhookResponse?.success ? 'Success' : 'ERROR' }}
+          </span>
+        </div>
+
+        <!-- Tables used -->
+        <div class="response-tables" *ngIf="tablesUsed.length">
+          <span class="response-label">Tables used:</span>
+          <span class="response-table-tag" *ngFor="let t of tablesUsed">{{ t }}</span>
+        </div>
+
+        <!-- SQL query -->
+        <div class="response-sql" *ngIf="sqlQuery">
+          <span class="response-label">Generated SQL:</span>
+          <pre class="sql-block">{{ sqlQuery }}</pre>
+        </div>
+
+        <!-- Chart data / raw -->
+        <div class="response-content" *ngIf="webhookResponse">
+          <p *ngIf="webhookResponse.error" class="error-message">{{ webhookResponse.error }}</p>
+          <pre *ngIf="webhookResponse.data" class="response-data">{{ webhookResponse.data | json }}</pre>
+        </div>
+      </div>
+      
+    </section>
+  </main>
+</div>
+
+
+<router-outlet />
